@@ -45,7 +45,7 @@ if __name__ == '__main__':
     print('SciPy init time = %.6f' % sp_init_time)
     print('SciPy eval time = %.6f' % sp_eval_time)
 
- 
+    """ 
     fig = plt.figure(1,(16,7))
     ax1 = fig.add_subplot(121)
     ax1.plot(xi,fi,'o',xe,fe)
@@ -55,3 +55,5 @@ if __name__ == '__main__':
     ax2.plot(xi,fi,'o',xe,ge)
     ax2.set_title('scipy.interpolate.BarycentricInterpolate')
     plt.show()
+    """
+
