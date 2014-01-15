@@ -67,7 +67,8 @@ Lagrange::Lagrange(int numInterpPts, double* xInterp, int numEvalPts, double* xE
 
 Lagrange::~Lagrange()
 {
-    delete w,ell;
+    delete w;
+    delete ell;
  }
 
 int Lagrange::bi_sum(double* f, double* y)

@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 import numpy.polynomial.chebyshev as C
 import time
 from scipy.interpolate import BarycentricInterpolator as bi
-from lagrange import Barycentric
+from cy_lagrange import Barycentric
 
 if __name__ == '__main__':
 
-    ni = 250
-    ne = 100000
+    ni = 500
+    ne = 20000
 
     # Interpolation points
     xi = C.chebpts1(ni)
@@ -18,27 +18,32 @@ if __name__ == '__main__':
 
     # The data to interpolate
     fi = np.sin(10*xi)*np.exp(xi)
-
+ 
+    t = [time.time()]
+    
     # Interpolate using Cython/C++/OpenMP
-    start = time.time()
     bary = Barycentric(xi,xe)
-    stop = time.time()
-    cy_init_time = stop-start
-    start = stop
+
+    t.append(time.time())    
+ 
     fe = bary.interp(fi)
-    stop = time.time()
-    cy_eval_time = stop-start
+
+    t.append(time.time())    
 
     # Interpolate using SciPy's BarycentricInterpolator
-    start = time.time()
     L = bi(xi)
     L.set_yi(fi)
-    stop = time.time()
-    sp_init_time = stop-start
-    start = stop
+
+    t.append(time.time())    
+
     ge = L(xe)
-    stop = time.time()
-    sp_eval_time = stop-start
+
+    t.append(time.time())    
+
+    cy_init_time = t[1]-t[0]
+    cy_eval_time = t[2]-t[1]
+    sp_init_time = t[3]-t[2]
+    sp_eval_time = t[4]-t[3]
 
     print('Cython init time = %.6f' % cy_init_time)
     print('Cython eval time = %.6f' % cy_eval_time)

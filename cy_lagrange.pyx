@@ -1,8 +1,10 @@
-# cy_lagrange.pyx
+# distutils: language = c++
+# distutils: sources = lagrange.cpp
+
 import cython
 import numpy as np
 cimport numpy as np
-
+from cython.parallel import parallel
 
 cdef extern from "lagrange.hpp":
     cdef cppclass Lagrange:
