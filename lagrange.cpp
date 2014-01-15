@@ -79,7 +79,7 @@ int Lagrange::bi_sum(double* f, double* y)
     // Loop indices
     int j,k;
 
-    #pragma omp parallel for
+//    #pragma omp parallel for
     for(j=0;j<ne;++j)
     {
         y[j] = 0;
