@@ -1,10 +1,13 @@
 #include"lagrange.hpp"
-#include<omp.h>
+#include<iostream>
+
+using namespace std;
+
 
 // Constructor
 Lagrange::Lagrange(int numInterpPts, double* xInterp, int numEvalPts, double* xEval)
 {
-    // Loop indices
+   // Loop indices
     int j,k;
 
     // For storing displacements between interpolation points
@@ -39,7 +42,6 @@ Lagrange::Lagrange(int numInterpPts, double* xInterp, int numEvalPts, double* xE
         }
     }
 
-    #pragma omp parallel for
     for(j=0;j<ni;++j)
     {
         w[j] = 1/w[j];
@@ -47,7 +49,6 @@ Lagrange::Lagrange(int numInterpPts, double* xInterp, int numEvalPts, double* xE
   
     double* ones = new double[ni];     // Create vector of ones
   
-    #pragma omp parallel for
     for(j=0;j<ni;++j)
     {
         ones[j] = 1;
@@ -55,7 +56,6 @@ Lagrange::Lagrange(int numInterpPts, double* xInterp, int numEvalPts, double* xE
 
     this->bi_sum(ones,ell);    // Compute the ell(x) polynomial
 
-    #pragma omp parallel for
     for(j=0;j<ne;++j)
     {
         ell[j] = 1/ell[j];
@@ -79,7 +79,6 @@ int Lagrange::bi_sum(double* f, double* y)
     // Loop indices
     int j,k;
 
-//    #pragma omp parallel for
     for(j=0;j<ne;++j)
     {
         y[j] = 0;
@@ -106,7 +105,6 @@ int Lagrange::interp(int mi, double* func, int mo, double* poly)
 
     this->bi_sum(func,poly);
 
-    #pragma omp parallel for
     for(j=0;j<ne;++j)
     {
         poly[j] *= ell[j];

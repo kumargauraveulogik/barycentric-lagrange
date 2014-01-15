@@ -17,9 +17,7 @@ setup( name = 'lagrange',
        description = 'C++ class for Barycentric Lagrange inerpolation with Cython',
        ext_modules=[Extension("cy_lagrange",
                         sources=["cy_lagrange.pyx","lagrange.cpp"],
-                        language="c++",
-                        extra_compile_args=['-fopenmp'],
-                        extra_link_args=['-fopenmp'])
+                        language="c++")
        ],
        cmdclass = {'build_ext': build_ext},
 )                                         
