@@ -23,8 +23,4 @@ setup( name = 'lagrange',
        cmdclass = {'build_ext': build_ext},
 )                                         
        
-#       ext_modules = cythonize("cy_lagrange.pyx",
-#                sources = ["lagrange.cpp"],
-#                extra_compile_args = ['-fopenmp'],
-#                extra_link_args= [ '-lgomp'],
-#                language="c++",))        
+
